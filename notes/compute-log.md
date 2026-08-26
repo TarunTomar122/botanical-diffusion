@@ -101,3 +101,9 @@ Before each run record: GPU, $/hr, hypothesis, duration, est cost. After: actual
 **Sequence:** Training exp001 paused at step 10,872 (checkpoint-10000 saved). Downloaded 191 Curtis vols (13GB, 8 workers) → built 4967 plates (top100, 32 workers, 17 min). **Text scan found 904/4967 (18%) text-like** (colored text pages clump>0.1). Rebuilding from top250 candidates (11,465) with clump filter → target ≥5k clean. Running now (48 workers, ~35 min).
 - Sat check validated: text pages have dark-column clump>0.1; b/w engraved plates have clump=0.
 - Cost so far today: pod RUNNING ($0.57/hr) mostly for dataset build ~40 min ≈ $0.38 + earlier ~$0.7 ≈ **$1.1 cumulative** (no training burn since 10k stall).
+
+## 2026-08-26 10:35-11:23 — FINAL CLEAN DATASET + TRAINING RESUMED
+
+- Built **11,465** plates from 191 vols (top250/vol, 48 workers, 41 min), then **text-filtered to 9,109** (2,356 text pages dropped by clump>0.1). 1,885 b/w engravings kept (flowers, not text).
+- **exp002 resumed 11:23** from checkpoint-10000 on 9,109 clean plates: 3.47 it/s, 50k steps ~4h ≈ $2.28. dropout 0.2, wd 1e-4.
+- Pod cost: ~$0.57 * ~2.3h dataset build + overhead ≈ $1.4. Total cumulative est **~$2.4** after exp002 ramps.
