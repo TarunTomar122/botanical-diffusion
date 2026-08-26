@@ -107,3 +107,7 @@ Chronological record of decisions, discoveries, failures, observations.
 **Baseline (exp001):** 128px 35.7M, batch 8, EMA, cosine→50k steps. **LIVE at 3.5 it/s**, loss 1.16→0.03 by step 300 and ~0.05-0.06 at 400. ETA ~4h → est $2.28 on PRO4000. Checkpoints 2k, samples 1k. Auto-poller syncing samples+montage to GitHub every 5min.
 
 **Next:** let exp001 run; poll; at 10k inspect grids qualitatively; at ~50k evaluate: montage, memorization NN check, loss curve; then decide on extension (more steps / higher res / flowers-only).
+
+## 2026-08-26 — Dataset pivot to Oxford Flowers-102
+
+The historical Curtis scan corpus remained too contaminated by text and calibration artifacts despite heuristic filtering. CLIP classified only ~2,026/9,109 as botanical and the resumed checkpoint continued generating text, proving the old checkpoint carried text modes. The user prioritized a coherent all-flower dataset, so the faster Oxford Flowers-102 corpus was chosen: 8,189 flower photographs, no page scans/rulers/text. exp004 is fresh-init to remove inherited priors.

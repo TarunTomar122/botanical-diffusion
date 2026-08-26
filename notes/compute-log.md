@@ -107,3 +107,7 @@ Before each run record: GPU, $/hr, hypothesis, duration, est cost. After: actual
 - Built **11,465** plates from 191 vols (top250/vol, 48 workers, 41 min), then **text-filtered to 9,109** (2,356 text pages dropped by clump>0.1). 1,885 b/w engravings kept (flowers, not text).
 - **exp002 resumed 11:23** from checkpoint-10000 on 9,109 clean plates: 3.47 it/s, 50k steps ~4h ≈ $2.28. dropout 0.2, wd 1e-4.
 - Pod cost: ~$0.57 * ~2.3h dataset build + overhead ≈ $1.4. Total cumulative est **~$2.4** after exp002 ramps.
+
+## 2026-08-26 — exp004 Flowers-102 fresh run
+
+Switched from slow historical-book scraping after visual review found only ~3/10 desired flower plates and scan artifacts. Oxford Flowers-102 was selected for speed and guaranteed flower-only content: 8,189 images across train/val/test, all labeled flower categories. Fresh 35.7M pixel UNet, 128px, dropout 0.25, wd 1e-4, no resume. Target 50k steps; checkpoint/sample herder active. Pod RTX PRO 4000 Blackwell $0.57/hr.
