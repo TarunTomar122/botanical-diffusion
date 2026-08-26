@@ -39,3 +39,4 @@ mlruns/
 # system
 .DS_Store
 Thumbs.db
+!experiments/**/*.png
