@@ -89,7 +89,8 @@ See [`research/model-research.md`](research/model-research.md).
 | 2026-08-26 | RunPod pricing research | $0 | — | A5000/3090 selected |
 | 2026-08-26 | Repo initialized | $0 | — | Structure + docs |
 
-*Next:* Download Curtis sample → inspect grids → sanity training run
+* **exp000 sanity (64px, 12M):** done — 1500 steps in 65s, loss 1.1→0.013, progression saved (progression_sanity_64.png)
+* **exp001 baseline (128px, 35.7M):** **RUNNING** on RTX PRO 4000 Blackwell $0.57/hr (3.5 it/s, 50k steps ≈ 4h ≈ $2.28). Loss 1.16→~0.01 by step 3k. Samples auto-synced to GitHub every 10 min.
 
 ---
 
