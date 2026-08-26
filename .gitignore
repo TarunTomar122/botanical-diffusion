@@ -1,0 +1,41 @@
+# secrets
+.env
+*.env
+
+# python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+pip-log.txt
+
+# data - large
+data/raw/
+data/processed/
+*.zip
+*.tar.gz
+*.jp2
+*.jpg
+*.png
+!figures/**/*.png
+!data/samples/**
+
+# checkpoints - large
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+wandb/
+mlruns/
+*.pkl
+
+# jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# system
+.DS_Store
+Thumbs.db

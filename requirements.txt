@@ -1,0 +1,27 @@
+# core
+torch>=2.1
+torchvision
+accelerate>=0.25
+diffusers>=0.27
+transformers
+datasets
+huggingface_hub
+pillow
+numpy
+tqdm
+pyyaml
+tensorboard
+xformers
+# data / inspection
+matplotlib
+seaborn
+pandas
+scikit-learn
+imagehash
+opencv-python
+# eval
+clean-fid
+lpips
+# runpod / utils
+requests
+boto3
