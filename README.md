@@ -32,7 +32,7 @@ Historical botanical plates (Curtis's Botanical Magazine, 1787–1920) are a *co
 
 See [`research/dataset-sources.md`](research/dataset-sources.md) and [`notes/research-log.md`](notes/research-log.md).
 
-**Status:** 🔍 Research complete → next: download + inspect
+**Status:** exp004 complete — fresh 30k Flowers-102 run; final checkpoint and progression committed
 
 | Source | Usable | Coherence | License | Retrieval |
 |--------|--------|-----------|---------|-----------|
@@ -176,3 +176,8 @@ accelerate launch src/training/train.py --config configs/baseline_128.yaml
 ## License
 
 Code: MIT · Dataset: Public Domain (Curtis's Botanical Magazine, pre-1929) · Generated images: CC0
+
+
+## Final Control Run
+
+The final clean control used 8,189 Oxford Flowers-102 images, a fresh 35.7M UNet at 128px, and stopped at 30,302 steps after flower-like generations emerged. See `notes/exp004-final.md` and `figures/exp004_latest_30k.png`. The RTX PRO 4000 pod was terminated after artifact sync.

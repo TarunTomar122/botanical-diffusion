@@ -111,3 +111,12 @@ Before each run record: GPU, $/hr, hypothesis, duration, est cost. After: actual
 ## 2026-08-26 — exp004 Flowers-102 fresh run
 
 Switched from slow historical-book scraping after visual review found only ~3/10 desired flower plates and scan artifacts. Oxford Flowers-102 was selected for speed and guaranteed flower-only content: 8,189 images across train/val/test, all labeled flower categories. Fresh 35.7M pixel UNet, 128px, dropout 0.25, wd 1e-4, no resume. Target 50k steps; checkpoint/sample herder active. Pod RTX PRO 4000 Blackwell $0.57/hr.
+
+## exp004 final — stopped 30,302 steps
+
+- Dataset: Oxford Flowers-102, 8,189 images, flower-only.
+- GPU: RTX PRO 4000 Blackwell, secure $0.57/hr.
+- Runtime: ~2h28m training plus setup; estimated training cost ~$1.40.
+- Outcome: fresh-init model, no text prior, CLIP flower argmax at early and 5k checkpoints, 0 training errors, flower-like outputs by 30k.
+- Final checkpoint downloaded locally: `experiments/exp004_flowers102/checkpoints/checkpoint-30000/`.
+- Pod terminated after final artifact sync; no running botanical pods remain.
