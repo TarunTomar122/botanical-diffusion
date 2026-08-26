@@ -120,3 +120,11 @@ Switched from slow historical-book scraping after visual review found only ~3/10
 - Outcome: fresh-init model, no text prior, CLIP flower argmax at early and 5k checkpoints, 0 training errors, flower-like outputs by 30k.
 - Final checkpoint downloaded locally: `experiments/exp004_flowers102/checkpoints/checkpoint-30000/`.
 - Pod terminated after final artifact sync; no running botanical pods remain.
+
+## exp004 refinement completed
+
+- Resumed from exp004 checkpoint-30000 for an additional **10,000 steps** on Oxford Flowers-102.
+- Final refinement step: 10,000/10,000; loss ~0.0099; zero errors.
+- Final checkpoint backed up locally: `experiments/exp004_refine_40k/checkpoints/checkpoint-10000/`.
+- Final samples and montage: `experiments/exp004_refine_40k/`, `figures/exp004_refinement_final.png`.
+- Pod `cy9k8p0nejbo90` terminated after artifact sync; no botanical pods running.
