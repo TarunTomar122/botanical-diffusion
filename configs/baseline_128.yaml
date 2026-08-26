@@ -1,12 +1,13 @@
 # Baseline: 35M UNet at 128px, from-scratch, Curtis 3.5k
+# Corrected: 35.7M with 4 blocks (128,256,256,256) layers 2, attn at 16
 model:
   sample_size: 128
   in_channels: 3
   out_channels: 3
   layers_per_block: 2
-  block_out_channels: [128, 128, 256, 256, 512, 512]
-  down_block_types: ["DownBlock2D", "DownBlock2D", "DownBlock2D", "DownBlock2D", "AttnDownBlock2D", "DownBlock2D"]
-  up_block_types: ["UpBlock2D", "AttnUpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D"]
+  block_out_channels: [128, 256, 256, 256]
+  down_block_types: ["DownBlock2D", "DownBlock2D", "AttnDownBlock2D", "DownBlock2D"]
+  up_block_types: ["UpBlock2D", "AttnUpBlock2D", "UpBlock2D", "UpBlock2D"]
   dropout: 0.1
   attention_head_dim: 8
   norm_num_groups: 32
