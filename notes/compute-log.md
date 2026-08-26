@@ -95,3 +95,9 @@ Before each run record: GPU, $/hr, hypothesis, duration, est cost. After: actual
 **exp000_sanity_gpu (64px, 12M, 1500 steps):** completed 08:53, 65s, loss ~0.013, samples at 250..1500 saved locally (`experiments/exp000_sanity_gpu/`), montage `figures/progression_sanity_64.png`.
 **exp001_baseline_128 (128px, 35.7M, target 50k steps @3.5 it/s ≈ 4h):** started 08:56. Checkpoint 2k, samples 1k. Est cost $0.57×4h = $2.28.
 **Cumulative spend to date:** ~$0.35 provisioning overhead + sanity ~$0.02 ≈ **$0.37** (+baseline accruing).
+
+## 2026-08-26 10:00-10:40 — 10k dataset build (parallel, on GPU pod)
+
+**Sequence:** Training exp001 paused at step 10,872 (checkpoint-10000 saved). Downloaded 191 Curtis vols (13GB, 8 workers) → built 4967 plates (top100, 32 workers, 17 min). **Text scan found 904/4967 (18%) text-like** (colored text pages clump>0.1). Rebuilding from top250 candidates (11,465) with clump filter → target ≥5k clean. Running now (48 workers, ~35 min).
+- Sat check validated: text pages have dark-column clump>0.1; b/w engraved plates have clump=0.
+- Cost so far today: pod RUNNING ($0.57/hr) mostly for dataset build ~40 min ≈ $0.38 + earlier ~$0.7 ≈ **$1.1 cumulative** (no training burn since 10k stall).

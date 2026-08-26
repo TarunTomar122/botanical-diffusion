@@ -90,7 +90,9 @@ See [`research/model-research.md`](research/model-research.md).
 | 2026-08-26 | Repo initialized | $0 | — | Structure + docs |
 
 * **exp000 sanity (64px, 12M):** done — 1500 steps in 65s, loss 1.1→0.013, progression saved (progression_sanity_64.png)
-* **exp001 baseline (128px, 35.7M):** **RUNNING** on RTX PRO 4000 Blackwell $0.57/hr (3.5 it/s, 50k steps ≈ 4h ≈ $2.28). Loss 1.16→~0.01 by step 3k. Samples auto-synced to GitHub every 10 min.
+* **exp001 baseline (128px, 35.7M):** **paused at step 10,872** (loss 1.16→0.003, checkpoint-10000 saved). Samples auto-synced to GitHub.
+   * 5% of original 360 set was text pages → new `build_clean.py` sat+clump filter
+   * **exp002** (IN PROGRESS): resume from checkpoint-10000 on ~10k CURTIS-ONLY clean plates (191 vols, text-filtered), dropout 0.2, wd 1e-4
 
 ---
 

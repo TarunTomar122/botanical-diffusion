@@ -20,21 +20,26 @@ class DS(Dataset):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
+    parser.add_argument("--resume", help="path to pretrained UNet dir to warm-start from")
     args=parser.parse_args()
     with open(args.config) as f:
         cfg=yaml.safe_load(f)
     res=cfg["training"]["resolution"]
     ds=DS(cfg["data"]["train_data_dir"], res)
     dl=DataLoader(ds, batch_size=cfg["training"]["train_batch_size"], shuffle=True, num_workers=0)
-    model=UNet2DModel(
-        sample_size=cfg["model"]["sample_size"],
-        in_channels=3,out_channels=3,
-        layers_per_block=cfg["model"]["layers_per_block"],
-        block_out_channels=tuple(cfg["model"]["block_out_channels"]),
-        down_block_types=tuple(cfg["model"]["down_block_types"]),
-        up_block_types=tuple(cfg["model"]["up_block_types"]),
-        dropout=cfg["model"].get("dropout",0.1)
-    )
+    if args.resume:
+        model = UNet2DModel.from_pretrained(args.resume)
+        print(f"resumed UNet from {args.resume}")
+    else:
+        model=UNet2DModel(
+            sample_size=cfg["model"]["sample_size"],
+            in_channels=3,out_channels=3,
+            layers_per_block=cfg["model"]["layers_per_block"],
+            block_out_channels=tuple(cfg["model"]["block_out_channels"]),
+            down_block_types=tuple(cfg["model"]["down_block_types"]),
+            up_block_types=tuple(cfg["model"]["up_block_types"]),
+            dropout=cfg["model"].get("dropout",0.1)
+        )
     print(f"params {sum(p.numel() for p in model.parameters())/1e6:.1f}M")
     device="cuda" if torch.cuda.is_available() else "cpu"
     print(f"device {device}")
