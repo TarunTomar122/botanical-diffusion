@@ -79,3 +79,19 @@ Before each run record: GPU, $/hr, hypothesis, duration, est cost. After: actual
 **Cumulative provisioning overhead:** ~$0.20 (no training spend yet).
 
 **Next:** If 2kw still fails after 10 min, try different host/GPU (A40, RTX 6000 Ada) or use `runpodctl` or try community with smaller image.
+
+## 2026-08-26 08:40-08:58 — FIRST SUCCESSFUL GPU RUNS (RTX PRO 4000 Blackwell)
+
+**Root cause of earlier failures:** (1) missing `env.PUBLIC_KEY` in pod creation → sshd never starts →
+`Connection refused`; (2) host-side Docker overlay failure on some workers (`error creating overlay mount ... no such file or directory`).
+**Fix:** pass `env: [{key:"PUBLIC_KEY", value:<both local pubkeys>}]` at creation + user picked `NVIDIA RTX PRO 4000 Blackwell` (24GB, secure $0.57).
+
+| # | Time | Experiment | GPU | Type | $/hr | Intended | Actual | Cost est | Outcome |
+|---|------|------------|-----|------|------|----------|--------|----------|---------|---------|
+| 8 | 08:38 | pod 5ufj5rde3dcouw 4000Ada | RTX 4000 Ada | Secure | $0.28 | SSH test | ~4min, killed | $0.02 | HOST Docker overlay failure (container never started) |
+| 9 | 08:43 | pod 0l3y0a5d3as4fs 3080Ti | RTX 3080 Ti | Community | $0.18 | SSH test | ~3min, killed | $0.01 | runtime NULL >2min, killed |
+| 10 | 08:46 | pod ysuir5mi3dfnxo **PRO4000** | **RTX PRO 4000 Blackwell** | Secure | **$0.57** | sanity+baseline | **RUNNING** | live | **✅ SSH OK at 98s, sanity 1500 steps in 65s (24 it/s), loss 1.1→0.013; baseline exp001 live 3.5 it/s, loss 1.16→0.03 @ step 300** |
+
+**exp000_sanity_gpu (64px, 12M, 1500 steps):** completed 08:53, 65s, loss ~0.013, samples at 250..1500 saved locally (`experiments/exp000_sanity_gpu/`), montage `figures/progression_sanity_64.png`.
+**exp001_baseline_128 (128px, 35.7M, target 50k steps @3.5 it/s ≈ 4h):** started 08:56. Checkpoint 2k, samples 1k. Est cost $0.57×4h = $2.28.
+**Cumulative spend to date:** ~$0.35 provisioning overhead + sanity ~$0.02 ≈ **$0.37** (+baseline accruing).
