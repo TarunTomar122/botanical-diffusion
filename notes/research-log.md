@@ -92,3 +92,18 @@ Chronological record of decisions, discoveries, failures, observations.
 4. Download sample (1–2 vols) → inspect grids, stats, dedup
 5. Implement training (`src/models/unet.py`, `src/training/train.py`) based on diffusers `train_unconditional.py` but locked to 35M 128px
 6. Sanity check: tiny run (64px, 1k images, 5k steps) locally or cheap pod to verify pipeline before main run
+
+---
+
+## 2026-08-26 08:40-09:00 — GPU RUNS FINALLY WORK (RTX PRO 4000 Blackwell)
+
+**Failure root cause discovered (with user's help):**
+1. **Missing PUBLIC_KEY:** RunPod pods only start `sshd` when `env.PUBLIC_KEY` is set at creation. All my earlier pods lacked it → `Connection refused`. Old working pod had `ttomar@adobe.com` key.
+2. **Broken hosts:** one pod (`5ufj5rde3dcouw`) returned host Docker error `error creating overlay mount ... no such file or directory` — container never started, `runtime=null` forever.
+3. **Fix:** `env: [{key:"PUBLIC_KEY", value:"<local ed25519 pubkey>\n<local rsa pubkey>"}]` + user-picked **RTX PRO 4000 Blackwell** (24GB, $0.57).
+
+**Sanity (exp000):** 64px 12M, 1500 steps, batch16, EMA, no amp → **65s total, 24 it/s, loss 1.1→0.013**, 6 sample grids saved+committed, montage `figures/progression_sanity_64.png`.
+
+**Baseline (exp001):** 128px 35.7M, batch 8, EMA, cosine→50k steps. **LIVE at 3.5 it/s**, loss 1.16→0.03 by step 300 and ~0.05-0.06 at 400. ETA ~4h → est $2.28 on PRO4000. Checkpoints 2k, samples 1k. Auto-poller syncing samples+montage to GitHub every 5min.
+
+**Next:** let exp001 run; poll; at 10k inspect grids qualitatively; at ~50k evaluate: montage, memorization NN check, loss curve; then decide on extension (more steps / higher res / flowers-only).
